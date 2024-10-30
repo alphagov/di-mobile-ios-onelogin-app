@@ -1,5 +1,4 @@
 import Coordination
-import CRIOrchestrator
 import GDSAnalytics
 import GDSCommon
 import LocalAuthentication
@@ -60,10 +59,6 @@ final class TabManagerCoordinator: NSObject,
         root.delegate = self
         addTabs()
         subscribe()
-        
-        let criOrchestrator = CRIOrchestrator(analyticsService: analyticsCenter.analyticsService,
-                                                 networkClient: NetworkClient())
-        criOrchestrator.startCRIOrchestratorForTestWrapper(navigationController: root.moreNavigationController, useNFC: true)
     }
     
     func handleUniversalLink(_ url: URL) {

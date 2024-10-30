@@ -1,5 +1,6 @@
 import Authentication
 import Coordination
+import CRIOrchestrator
 import GDSCommon
 import LocalAuthentication
 import Logging
@@ -26,5 +27,9 @@ final class HomeCoordinator: NSObject,
                                        tag: 0)
         let hc = HomeViewController(analyticsService: analyticsService)
         root.setViewControllers([hc], animated: true)
+        
+        let criOrchestrator = CRIOrchestrator(analyticsService: analyticsService,
+                                              networkClient: NetworkClient())
+        criOrchestrator.startCRIOrchestratorForTestWrapper(navigationController: root, useNFC: true)
     }
 }
