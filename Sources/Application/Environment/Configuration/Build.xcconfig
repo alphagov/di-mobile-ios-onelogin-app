@@ -1,4 +1,4 @@
-#include "../secrets.xcconfig"
+//#include "../secrets.xcconfig"
 
 PRODUCT_BUNDLE_IDENTIFIER = uk.gov.onelogin.build
 

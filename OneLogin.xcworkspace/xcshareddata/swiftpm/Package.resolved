@@ -100,6 +100,15 @@
       }
     },
     {
+      "identity" : "ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/iProov/ios.git",
+      "state" : {
+        "revision" : "f458a97bcc571cfd7ffee556ce0968526aa00ac0",
+        "version" : "12.1.0"
+      }
+    },
+    {
       "identity" : "jwt-kit",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/vapor/jwt-kit.git",
@@ -115,6 +124,15 @@
       "state" : {
         "revision" : "a0bc79961d7be727d258d33d5a6b2f1023270ba1",
         "version" : "1.22.5"
+      }
+    },
+    {
+      "identity" : "mobile-id-check-ios-sdk",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/govuk-one-login/mobile-id-check-ios-sdk",
+      "state" : {
+        "revision" : "2d0bf5d9ea35b55f0dc04360ccf445745f550509",
+        "version" : "2.0.0"
       }
     },
     {
@@ -160,6 +178,15 @@
       "state" : {
         "revision" : "7ea8b9091042545403eb1db2ad2cc60e9ce17191",
         "version" : "3.0.0"
+      }
+    },
+    {
+      "identity" : "mobile-ios-readid",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/govuk-one-login/mobile-ios-readid",
+      "state" : {
+        "revision" : "f99bcf385aaf5fb4518afbe591ddf991f7f05724",
+        "version" : "1.3.0"
       }
     },
     {

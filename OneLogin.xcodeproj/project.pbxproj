@@ -20,6 +20,7 @@
 		21E04DFC2AE6BC5B004C6660 /* MockAnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E04DFB2AE6BC5B004C6660 /* MockAnalyticsService.swift */; };
 		21FA1C4D2AE183D20052136E /* MockLoginSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FA1C4B2AE183A50052136E /* MockLoginSession.swift */; };
 		21FA1C502AE18C8B0052136E /* OneLoginIntroViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FA1C4E2AE18C6E0052136E /* OneLoginIntroViewModelTests.swift */; };
+		2BBD03182CD2627300DD6B1B /* CRIOrchestrator in Frameworks */ = {isa = PBXBuildFile; productRef = 2BBD03172CD2627300DD6B1B /* CRIOrchestrator */; };
 		3BBF28F02A9F7D3200491BB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BBF28E62A9F7D3200491BB1 /* Assets.xcassets */; };
 		3BBF28F12A9F7D3200491BB1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BBF28E82A9F7D3200491BB1 /* LaunchScreen.storyboard */; };
 		3BBF28F32A9F7D3200491BB1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBF28ED2A9F7D3200491BB1 /* AppDelegate.swift */; };
@@ -474,6 +475,7 @@
 				C8A13CA42AFBD07E00FCBD36 /* Authentication in Frameworks */,
 				C8A13CB02AFBD0F100FCBD36 /* Coordination in Frameworks */,
 				C8A13CA92AFBD0CC00FCBD36 /* GAnalytics in Frameworks */,
+				2BBD03182CD2627300DD6B1B /* CRIOrchestrator in Frameworks */,
 				C8A13C9F2AFBD05700FCBD36 /* GDSAnalytics in Frameworks */,
 				C8A13CA12AFBD05700FCBD36 /* GDSCommon in Frameworks */,
 				C8A13CAB2AFBD0CC00FCBD36 /* HTTPLogging in Frameworks */,
@@ -1544,6 +1546,7 @@
 				7CA719732C848EF600973585 /* Wallet */,
 				7CDC2EBD2C8B1CF200EAA592 /* MobilePlatformServices */,
 				7CF44B272CAB45A70027839B /* AppIntegrity */,
+				2BBD03172CD2627300DD6B1B /* CRIOrchestrator */,
 			);
 			productName = "di-mobile-ios-onelogin-app";
 			productReference = 219601E72A976302008F3427 /* OneLogin.app */;
@@ -1676,6 +1679,7 @@
 				7C1918422C861DF500D268C4 /* XCRemoteSwiftPackageReference "mobile-wallet-ios" */,
 				7CDC2EBC2C8B1CF200EAA592 /* XCLocalSwiftPackageReference "MobilePlatformServices" */,
 				7CF44B262CAB45A70027839B /* XCLocalSwiftPackageReference "AppIntegrity" */,
+				2B219CB92CD2559900E443E5 /* XCRemoteSwiftPackageReference "mobile-id-check-ios-sdk" */,
 			);
 			productRefGroup = 219601E82A976302008F3427 /* Products */;
 			projectDirPath = "";
@@ -2229,7 +2233,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2262,7 +2266,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2565,7 +2569,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2765,7 +2769,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2970,6 +2974,14 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		2B219CB92CD2559900E443E5 /* XCRemoteSwiftPackageReference "mobile-id-check-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/govuk-one-login/mobile-id-check-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		7C1918422C861DF500D268C4 /* XCRemoteSwiftPackageReference "mobile-wallet-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/govuk-one-login/mobile-wallet-ios";
@@ -3037,6 +3049,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2BBD03172CD2627300DD6B1B /* CRIOrchestrator */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2B219CB92CD2559900E443E5 /* XCRemoteSwiftPackageReference "mobile-id-check-ios-sdk" */;
+			productName = CRIOrchestrator;
+		};
 		7CA719732C848EF600973585 /* Wallet */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Wallet;
