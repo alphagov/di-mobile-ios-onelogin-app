@@ -35,24 +35,20 @@ jobs:
           swiftlint --strict
 
   build_config_test:
-    name: Run Build config tests
+    name: Run Config Tests
     needs: build
     uses: ./.github/workflows/test-workflow-call.yml
     with:
       scheme: "OneLoginStaging"
       configuration: "Staging"
       test_plan: "OneLoginStaging"
-      app_check: true
-    secrets:
-     wallet_token: ${{secrets.MODULE_FETCH_TOKEN}}
      
   staging_config_test:
-    name: Run Staging config tests
+    name: Run Config Tests
     needs: build
     uses: ./.github/workflows/test-workflow-call.yml
     with:
       scheme: "OneLoginBuild"
       configuration: "Build"
       test_plan: "OneLoginBuild"
-    secrets:
-     wallet_token: ${{secrets.MODULE_FETCH_TOKEN}}
+      app_check: true
