@@ -29,7 +29,5 @@ jobs:
         run: |
           ./scripts-configs/store-access-token.sh
 
-      - name: Lint
-        run: |
-          brew install swiftlint
-          swiftlint --strict
+      - name: Call Workflow
+        uses: ./.github/workflows/test_workflow_call.yml
