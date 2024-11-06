@@ -42,3 +42,5 @@ jobs:
       scheme: "OneLoginStaging"
       configuration: "Staging"
       test_plan: "OneLoginStaging"
+    secrets:
+     wallet_token: ${{secrets.MODULE_FETCH_TOKEN}}

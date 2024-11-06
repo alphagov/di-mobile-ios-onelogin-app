@@ -13,6 +13,9 @@ on:
       app_check:
         required: false
         type: boolean
+    secrets:
+      wallet_token
+        required: true
 
 jobs:
   test_config:
@@ -30,7 +33,7 @@ jobs:
 
       - name: Configure Private Repo Access
         env:
-          GIT_TOKEN: ${{secrets.MODULE_FETCH_TOKEN}}
+          GIT_TOKEN: ${{ secrets.wallet_token }}
         run: |
           ./scripts-configs/store-access-token.sh
           
