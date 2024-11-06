@@ -35,11 +35,11 @@ jobs:
           swiftlint --strict
 
   call_workflow:
-    name: Run called workflow
-    needs: build
-    uses: ./.github/workflows/test-workflow-call.yml
-    with:
-      scheme: "OneLoginStaging"
-      configuration: "Staging"
-      test_plan: "OneLoginStaging"
+    - name: Run called workflow
+      needs: build
+      uses: ./.github/workflows/test-workflow-call.yml
+      with:
+        scheme: "OneLoginStaging"
+        configuration: "Staging"
+        test_plan: "OneLoginStaging"
       

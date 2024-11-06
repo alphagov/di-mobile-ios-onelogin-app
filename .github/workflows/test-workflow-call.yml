@@ -16,6 +16,7 @@ on:
 
 jobs:
   test_config:
+    name: Run ${{ inputs.configuration }} config tests
     runs-on: macos-14
     steps:
       - name: Add Path Globally
