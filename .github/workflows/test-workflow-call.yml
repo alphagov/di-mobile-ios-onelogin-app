@@ -13,7 +13,6 @@ on:
       app_check:
         required: false
         type: boolean
-    secrets: inherit
 
 jobs:
   test_config:

@@ -42,6 +42,7 @@ jobs:
       scheme: "OneLoginStaging"
       configuration: "Staging"
       test_plan: "OneLoginStaging"
+    secrets: inherit
      
   staging_config_test:
     name: Run Config Tests
@@ -52,3 +53,4 @@ jobs:
       configuration: "Build"
       test_plan: "OneLoginBuild"
       app_check: true
+    secrets: inherit
