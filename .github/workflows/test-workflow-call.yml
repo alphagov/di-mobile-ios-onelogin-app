@@ -2,7 +2,7 @@ name: Test Workflow Call
 
 on:
   workflow_run:
-    workflows: [Push to branch]
+    workflows: ["Push to branch"]
     types:
       - completed
 
