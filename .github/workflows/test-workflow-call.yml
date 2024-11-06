@@ -15,7 +15,7 @@ on:
         type: boolean
     secrets:
       wallet_token:
-        required: false
+        required: true
 
 jobs:
   test_config:

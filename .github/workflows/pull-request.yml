@@ -42,6 +42,7 @@ jobs:
       scheme: "OneLoginStaging"
       configuration: "Staging"
       test_plan: "OneLoginStaging"
+      app_check: true
     secrets:
      wallet_token: ${{secrets.MODULE_FETCH_TOKEN}}
      
@@ -53,3 +54,5 @@ jobs:
       scheme: "OneLoginBuild"
       configuration: "Build"
       test_plan: "OneLoginBuild"
+    secrets:
+     wallet_token: ${{secrets.MODULE_FETCH_TOKEN}}
