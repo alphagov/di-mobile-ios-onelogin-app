@@ -35,4 +35,5 @@ jobs:
           swiftlint --strict
 
   call_workflow:
+    needs: build
     uses: ./.github/workflows/test-workflow-call.yml
