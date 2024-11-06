@@ -34,8 +34,8 @@ jobs:
           brew install swiftlint
           swiftlint --strict
 
-  call_workflow:
-    name: Run called workflow
+  build_config_test:
+    name: Run Build config tests
     needs: build
     uses: ./.github/workflows/test-workflow-call.yml
     with:
@@ -44,3 +44,12 @@ jobs:
       test_plan: "OneLoginStaging"
     secrets:
      wallet_token: ${{secrets.MODULE_FETCH_TOKEN}}
+     
+  staging_config_test:
+    name: Run Staging config tests
+    needs: build
+    uses: ./.github/workflows/test-workflow-call.yml
+    with:
+      scheme: "OneLoginBuild"
+      configuration: "Build"
+      test_plan: "OneLoginBuild"

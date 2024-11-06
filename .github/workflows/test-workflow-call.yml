@@ -15,41 +15,43 @@ on:
         type: boolean
     secrets:
       wallet_token:
-        required: true
+        required: false
 
 jobs:
-  runs-on: macos-14
-  steps:
-    - name: Add Path Globally
-      run: echo "/usr/local/bin" >> $GITHUB_PATH
+  test_config:
+    name: Run ${{ inputs.configuration }} config tests
+    runs-on: macos-14
+    steps:
+      - name: Add Path Globally
+        run: echo "/usr/local/bin" >> $GITHUB_PATH
 
-    - name: Checkout
-      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # pin@v4
-      with:
-        lfs: 'true'
-        fetch-depth: 0
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # pin@v4
+        with:
+          lfs: 'true'
+          fetch-depth: 0
 
-    - name: Configure Private Repo Access
-      env:
-        GIT_TOKEN: ${{ secrets.wallet_token }}
-      run: |
-        ./scripts-configs/store-access-token.sh
-        
-    - name: Export AppCheck Secret
-      if: ${{ inputs.app_check == true }}
-      run: |
-        touch ../secrets.xcconfig
+      - name: Configure Private Repo Access
+        env:
+          GIT_TOKEN: ${{ secrets.wallet_token }}
+        run: |
+          ./scripts-configs/store-access-token.sh
+          
+      - name: Export AppCheck Secret
+        if: ${{ inputs.app_check == true }}
+        run: |
+          touch ../secrets.xcconfig
 
-    - name: Build App, Run Staging Configuration Tests
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        LC_ALL: "en_US.UTF-8"
-        LANG: "en_US.UTF-8"
-        GIT_CONFIG_NOSYSTEM: "true"
-        GIT_CONFIG_GLOBAL: '${{ github.workspace }}/scripts-configs/override-git-config'
-      run: |
-        bundle install
+      - name: Build App, Run Staging Configuration Tests
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          LC_ALL: "en_US.UTF-8"
+          LANG: "en_US.UTF-8"
+          GIT_CONFIG_NOSYSTEM: "true"
+          GIT_CONFIG_GLOBAL: '${{ github.workspace }}/scripts-configs/override-git-config'
+        run: |
+          bundle install
 
-        bundle exec fastlane testWithoutCoverage scheme:${{ inputs.scheme }} \
-          configuration:${{ inputs.configuration }} \
-          testplan:${{ inputs.test_plan }}
+          bundle exec fastlane testWithoutCoverage scheme:${{ inputs.scheme }} \
+            configuration:${{ inputs.configuration }} \
+            testplan:${{ inputs.test_plan }}
