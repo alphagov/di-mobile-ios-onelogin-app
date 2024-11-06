@@ -1,0 +1,34 @@
+name: Test Workflow Call
+
+on:
+  workflow_call:
+    workflows: [Push to branch]
+    types:
+      - completed
+
+jobs:
+  run_triggered_workflow:
+    name: Run Unit Tests and Send Coverage Report
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: macos-14
+    
+    steps:
+    - name: Add Path Globally
+      run: echo "/usr/local/bin" >> $GITHUB_PATH
+
+    - name: Checkout
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # pin@v4
+      with:
+        lfs: 'true'
+        fetch-depth: 0
+
+    - name: Configure Private Repo Access
+      env:
+        GIT_TOKEN: ${{secrets.MODULE_FETCH_TOKEN}}
+      run: |
+        ./scripts-configs/store-access-token.sh
+
+    - name: Lint
+      run: |
+        brew install swiftlint
+        swiftlint --strict
