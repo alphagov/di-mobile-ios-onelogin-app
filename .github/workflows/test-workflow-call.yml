@@ -2,9 +2,8 @@ name: Test Workflow Call
 
 on:
   workflow_run:
-    workflows: ["build"]
-    types:
-      - completed
+    workflows: [Push to branch]
+    types: [completed]
 
 jobs:
   run_triggered_workflow:
