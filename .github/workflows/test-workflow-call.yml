@@ -1,30 +1,53 @@
-name: Test Workflow Call
-
 on:
   workflow_call:
+    inputs:
+      scheme:
+        required: true
+        type: string
+      configuration:
+        required: true
+        type: string
+      test_plan:
+        required: true
+        type: string
+      app_check:
+        required: false
+        type: boolean
 
 jobs:
-  run_triggered_workflow:
-    name: Run Unit Tests and Send Coverage Report
+  test_config:
     runs-on: macos-14
-    
     steps:
-    - name: Add Path Globally
-      run: echo "/usr/local/bin" >> $GITHUB_PATH
+      - name: Add Path Globally
+        run: echo "/usr/local/bin" >> $GITHUB_PATH
 
-    - name: Checkout
-      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # pin@v4
-      with:
-        lfs: 'true'
-        fetch-depth: 0
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # pin@v4
+        with:
+          lfs: 'true'
+          fetch-depth: 0
 
-    - name: Configure Private Repo Access
-      env:
-        GIT_TOKEN: ${{secrets.MODULE_FETCH_TOKEN}}
-      run: |
-        ./scripts-configs/store-access-token.sh
+      - name: Configure Private Repo Access
+        env:
+          GIT_TOKEN: ${{secrets.MODULE_FETCH_TOKEN}}
+        run: |
+          ./scripts-configs/store-access-token.sh
+          
+      - name: Export AppCheck Secret
+        if: ${{ inputs.app_check == true }}
+        run: |
+          touch ../secrets.xcconfig
 
-    - name: Lint
-      run: |
-        brew install swiftlint
-        swiftlint --strict
+      - name: Build App, Run Staging Configuration Tests
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          LC_ALL: "en_US.UTF-8"
+          LANG: "en_US.UTF-8"
+          GIT_CONFIG_NOSYSTEM: "true"
+          GIT_CONFIG_GLOBAL: '${{ github.workspace }}/scripts-configs/override-git-config'
+        run: |
+          bundle install
+
+          bundle exec fastlane testWithoutCoverage scheme:${{ inputs.scheme }} \
+            configuration:${{ inputs.configuration }} \
+            testplan:${{ inputs.test_plan }}
