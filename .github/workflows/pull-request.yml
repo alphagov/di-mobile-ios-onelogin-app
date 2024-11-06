@@ -38,8 +38,8 @@ jobs:
     name: Run called workflow
     needs: build
     uses: ./.github/workflows/test-workflow-call.yml
-      with:
-        scheme: "OneLoginStaging"
-        configuration: "Staging"
-        test_plan: "OneLoginStaging"
+    with:
+      scheme: "OneLoginStaging"
+      configuration: "Staging"
+      test_plan: "OneLoginStaging"
       
