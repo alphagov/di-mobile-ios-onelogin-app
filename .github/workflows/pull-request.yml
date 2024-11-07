@@ -39,9 +39,7 @@ jobs:
     needs: build
     uses: ./.github/workflows/test-workflow-call.yml
     with:
-      scheme: "OneLoginStaging"
       configuration: "Staging"
-      test_plan: "OneLoginStaging"
     secrets: inherit
      
   staging_config_test:
@@ -49,8 +47,5 @@ jobs:
     needs: build
     uses: ./.github/workflows/test-workflow-call.yml
     with:
-      scheme: "OneLoginBuild"
       configuration: "Build"
-      test_plan: "OneLoginBuild"
-      app_check: true
     secrets: inherit

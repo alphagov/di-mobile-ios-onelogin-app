@@ -1,23 +1,15 @@
 on:
   workflow_call:
     inputs:
-      scheme:
-        required: true
-        type: string
       configuration:
         required: true
         type: string
-      test_plan:
-        required: true
-        type: string
-      app_check:
-        required: false
-        type: boolean
 
 jobs:
   test_config:
     name: Run ${{ inputs.configuration }} config tests
     runs-on: macos-14
+
     steps:
       - name: Add Path Globally
         run: echo "/usr/local/bin" >> $GITHUB_PATH
@@ -26,29 +18,42 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # pin@v4
         with:
           lfs: 'true'
-          fetch-depth: 0
 
       - name: Configure Private Repo Access
         env:
           GIT_TOKEN: ${{ secrets.MODULE_FETCH_TOKEN }}
         run: |
           ./scripts-configs/store-access-token.sh
-          
-      - name: Export AppCheck Secret
-        if: ${{ inputs.app_check == true }}
-        run: |
-          touch ../secrets.xcconfig
 
-      - name: Build App, Run Staging Configuration Tests
+      - name: Build App, Deploy to App Store Connect
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           LC_ALL: "en_US.UTF-8"
           LANG: "en_US.UTF-8"
           GIT_CONFIG_NOSYSTEM: "true"
           GIT_CONFIG_GLOBAL: '${{ github.workspace }}/scripts-configs/override-git-config'
         run: |
+          gitbranch=$(echo ${GITHUB_REF:-dev} | sed s/refs\\/heads\\///g)
+          echo Pushed to branch: $gitbranch
+
           bundle install
 
-          bundle exec fastlane testWithoutCoverage scheme:${{ inputs.scheme }} \
-            configuration:${{ inputs.configuration }} \
-            testplan:${{ inputs.test_plan }}
+          # create variables
+          CERTIFICATE_PATH=$RUNNER_TEMP/distribution.p12
+          CERTIFICATE_PASSWORD="${{ env.DI_IPV_DCA_MOB_IOS_GITHUB_ACTIONS_V2_AWS_SECRET_SIGNING_KEY_PASSWORD }}"
+          APIKEY_PATH=$RUNNER_TEMP/apikey.p8
+
+          # import certificates from secrets
+          echo -n "${{ env.DI_IPV_DCA_MOB_IOS_GITHUB_ACTIONS_V2_AWS_SECRET_DISTRIBUTION_P12_ENCODED }}" \
+            | base64 --decode -o $CERTIFICATE_PATH
+          echo -n "${{ env.DI_IPV_DCA_MOB_IOS_GITHUB_ACTIONS_V2_AWS_SECRET_AUTH_KEY_P8_ENCODED }}" \
+            | base64 --decode -o $APIKEY_PATH
+
+          bundle exec fastlane prerelease configuration:${{ inputs.configuration }} \
+            certificate_path:$CERTIFICATE_PATH \
+            certificate_password:$CERTIFICATE_PASSWORD \
+            apikey_path:$APIKEY_PATH --verbose
+
+          bundle exec fastlane prerelease configuration:${{ inputs.configuration }} \
+            certificate_path:$CERTIFICATE_PATH \
+            certificate_password:$CERTIFICATE_PASSWORD \
+            apikey_path:$APIKEY_PATH --verbose
