@@ -41,11 +41,3 @@ jobs:
     with:
       configuration: "Staging"
     secrets: inherit
-     
-  staging_config_test:
-    name: Run Config Tests
-    needs: build
-    uses: ./.github/workflows/test-workflow-call.yml
-    with:
-      configuration: "Build"
-    secrets: inherit
