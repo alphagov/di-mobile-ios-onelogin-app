@@ -3,19 +3,14 @@ import LocalAuthentication
 final class MockLocalAuthManager: LocalAuthenticationManager {
     var type: LocalAuthenticationType = .touchID
     
-    var LABiometricsIsEnabledOnTheDevice = false
-    var LAlocalAuthIsEnabledOnTheDevice = false
+    var localAuthPresent = false
     var errorFromEnrolLocalAuth: Error?
     var userDidConsentToFaceID = true
 
     var didCallEnrolFaceIDIfAvailable = false
 
-    func canUseLocalAuth(type policy: LAPolicy) -> Bool {
-        if policy == .deviceOwnerAuthenticationWithBiometrics {
-            return LABiometricsIsEnabledOnTheDevice
-        } else {
-            return LAlocalAuthIsEnabledOnTheDevice
-        }
+    var canUseAnyLocalAuth: Bool {
+        localAuthPresent
     }
     
     func enrolFaceIDIfAvailable() async throws -> Bool {
