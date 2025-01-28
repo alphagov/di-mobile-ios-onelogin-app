@@ -1,6 +1,7 @@
 import LocalAuthentication
 
 final class MockLocalAuthManager: LocalAuthenticationManager {
+    
     var type: LocalAuthenticationType = .touchID
     
     var localAuthPresent = false
