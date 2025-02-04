@@ -13,7 +13,7 @@ final class TabbedViewController: BaseViewController {
     
     private var analyticsPreference: AnalyticsPreferenceStore
     private var cancellables = Set<AnyCancellable>()
-
+    
     init(viewModel: TabbedViewModel,
          userProvider: UserProvider,
          headerView: UIView? = nil,
@@ -35,7 +35,7 @@ final class TabbedViewController: BaseViewController {
         super.viewDidLoad()
         title = viewModel.navigationTitle.value
         configureTableView()
-
+        
         updateEmail(userProvider.user.value?.email)
         subscribeToUsers()
     }
@@ -43,8 +43,6 @@ final class TabbedViewController: BaseViewController {
     override func viewIsAppearing(_ animated: Bool) {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.sizeToFit()
-        guard let analyticsAccepted = analyticsPreference.hasAcceptedAnalytics else { return }
-        analyticsSwitch.setOn(analyticsAccepted, animated: true)
     }
     
     override func viewDidLayoutSubviews() {
@@ -57,12 +55,6 @@ final class TabbedViewController: BaseViewController {
             tableView.accessibilityIdentifier = "tabbed-view-table-view"
         }
     }
-
-    @IBOutlet private var analyticsSwitch: UISwitch! {
-        didSet {
-            analyticsSwitch.accessibilityIdentifier = "tabbed-view-analytics-switch"
-        }
-    }
     
     private func subscribeToUsers() {
         userProvider.user
@@ -71,14 +63,14 @@ final class TabbedViewController: BaseViewController {
                 self.updateEmail(user?.email)
             }.store(in: &cancellables)
     }
-
+    
     func updateEmail(_ email: String?) {
         guard let headerView = headerView as? SignInView else { return }
         headerView.userEmail = email ?? ""
         resizeHeaderView()
     }
     
-    @IBAction private func updateAnalytics(_ sender: UISwitch) {
+    @objc private func toggleAnalytics() {
         analyticsPreference.hasAcceptedAnalytics?.toggle()
     }
     
@@ -125,7 +117,12 @@ extension TabbedViewController: UITableViewDataSource {
                 as? TabbedTableViewCell else { return UITableViewCell() }
         cell.viewModel = viewModel.sectionModels[indexPath.section].tabModels[indexPath.row]
         
-        if viewModel.sectionModels[indexPath.section].sectionTitle == "app_aboutSubtitle" {
+        if viewModel.sectionModels[indexPath.section].sectionTitle == "app_aboutSubtitle",
+           let analyticsAccepted = analyticsPreference.hasAcceptedAnalytics {
+            let analyticsSwitch = UISwitch()
+            analyticsSwitch.setOn(analyticsAccepted, animated: false)
+            analyticsSwitch.addTarget(self, action: #selector(toggleAnalytics), for: .valueChanged)
+            analyticsSwitch.accessibilityIdentifier = "tabbed-view-analytics-switch"
             cell.accessoryView = analyticsSwitch
         }
         return cell
