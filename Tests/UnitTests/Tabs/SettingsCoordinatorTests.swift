@@ -5,7 +5,7 @@ import SecureStore
 import XCTest
 
 @MainActor
-final class ProfileCoordinatorTests: XCTestCase {
+final class SettingsCoordinatorTests: XCTestCase {
     var window: UIWindow!
     var mockAnalyticsService: MockAnalyticsService!
     var mockAnalyticsPreference: MockAnalyticsPreferenceStore!
@@ -13,7 +13,7 @@ final class ProfileCoordinatorTests: XCTestCase {
     var mockNetworkClient: NetworkClient!
     var urlOpener: URLOpener!
     var mockWalletAvailabilityService: MockWalletAvailabilityService!
-    var sut: ProfileCoordinator!
+    var sut: SettingsCoordinator!
     
     override func setUp() {
         super.setUp()
@@ -25,7 +25,7 @@ final class ProfileCoordinatorTests: XCTestCase {
         mockNetworkClient = NetworkClient()
         urlOpener = MockURLOpener()
         mockWalletAvailabilityService = MockWalletAvailabilityService()
-        sut = ProfileCoordinator(analyticsService: mockAnalyticsService,
+        sut = SettingsCoordinator(analyticsService: mockAnalyticsService,
                                  sessionManager: mockSessionManager,
                                  networkClient: mockNetworkClient,
                                  urlOpener: urlOpener,
@@ -48,21 +48,21 @@ final class ProfileCoordinatorTests: XCTestCase {
     }
     
     func test_tabBarItem() {
-        // WHEN the ProfileCoordinator has started
+        // WHEN the SettingsCoordinator has started
         sut.start()
-        let profileTab = UITabBarItem(title: "Profile",
-                                      image: UIImage(systemName: "person.crop.circle"),
+        let settingsTab = UITabBarItem(title: "Settings",
+                                      image: UIImage(systemName: "gearshape"),
                                       tag: 2)
         // THEN the bar button item of the root is correctly configured
-        XCTAssertEqual(sut.root.tabBarItem.title, profileTab.title)
-        XCTAssertEqual(sut.root.tabBarItem.image, profileTab.image)
-        XCTAssertEqual(sut.root.tabBarItem.tag, profileTab.tag)
+        XCTAssertEqual(sut.root.tabBarItem.title, settingsTab.title)
+        XCTAssertEqual(sut.root.tabBarItem.image, settingsTab.image)
+        XCTAssertEqual(sut.root.tabBarItem.tag, settingsTab.tag)
     }
     
     func test_openSignOutPageWithWallet() throws {
         // WHEN Wallet has been accessed before
         mockWalletAvailabilityService.hasAccessedBefore = true
-        // WHEN the ProfileCoordinator is started
+        // WHEN the SettingsCoordinator is started
         sut.start()
         // WHEN the openSignOutPage method is called
         sut.openSignOutPage()
@@ -72,7 +72,7 @@ final class ProfileCoordinatorTests: XCTestCase {
     }
     
     func test_openSignOutPageNoWallet() throws {
-        // WHEN the ProfileCoordinator is started
+        // WHEN the SettingsCoordinator is started
         sut.start()
         // WHEN the openSignOutPage method is called
         sut.openSignOutPage()
@@ -99,7 +99,7 @@ final class ProfileCoordinatorTests: XCTestCase {
         window.makeKeyAndVisible()
         sut.start()
         // WHEN the showDeveloperMenu method is called
-        sut.showDeveloperMenu()
+        sut.openDeveloperMenu()
         // THEN the presented view controller is the DeveloperMenuViewController
         let presentedViewController = try XCTUnwrap(sut.root.presentedViewController as? UINavigationController)
         XCTAssertTrue(presentedViewController.topViewController is DeveloperMenuViewController)
