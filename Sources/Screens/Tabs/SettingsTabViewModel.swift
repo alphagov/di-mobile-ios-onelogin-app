@@ -7,11 +7,15 @@ import UIKit
 struct SettingsTabViewModel: TabbedViewModel {
     let navigationTitle: GDSLocalisedString = "app_settingsTitle"
     var sectionModels: [TabbedViewSectionModel] { [.manageDetails(urlOpener: urlOpener,
-                                                                  userEmail: userProvider.user.value?.email ?? ""),
-                                                   .help(urlOpener: urlOpener),
+                                                                  userEmail: userProvider.user.value?.email ?? "",
+                                                                  analyticsService: analyticsService),
+                                                   .help(urlOpener: urlOpener,
+                                                         analyticsService: analyticsService),
                                                    .analyticsToggle(),
-                                                   .notices(urlOpener: urlOpener),
-                                                   .signOutSection(action: openSignOutPage),
+                                                   .notices(urlOpener: urlOpener,
+                                                            analyticsService: analyticsService),
+                                                   .signOutSection(analyticsService: analyticsService,
+                                                                   action: openSignOutPage),
                                                    .developer(action: openDeveloperMenu)]
     }
     
