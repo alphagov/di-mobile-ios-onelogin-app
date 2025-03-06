@@ -6,6 +6,7 @@ import Logging
 import MobilePlatformServices
 import Networking
 import SecureStore
+import StoreKit
 import UIKit
 
 /// A type that is responsible for coordinating the main functionality of the app, a tab bar navigation.
@@ -152,9 +153,17 @@ extension TabManagerCoordinator: ParentCoordinator {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(userDidLogout),
                                                name: .didLogout)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(walletUpdated),
+                                               name: .walletUpdated)
     }
     
     @objc private func userDidLogout() {
         finish()
+    }
+    
+    @objc private func walletUpdated() {
+        SKStoreReviewController.requestReview(in: appWindow.windowScene!)
     }
 }
