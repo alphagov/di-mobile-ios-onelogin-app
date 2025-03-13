@@ -15,7 +15,7 @@ struct AnalyticsButtonViewModel: ColoredButtonViewModel {
          icon: ButtonIconViewModel? = nil,
          backgroundColor: UIColor = .gdsGreen,
          shouldLoadOnTap: Bool = false,
-         analyticsService: AnalyticsService,
+         analyticsService: OneLoginAnalyticsService,
          action: @escaping () -> Void) {
         let event = ButtonEvent(textKey: titleKey,
                                 variableKeys: titleStringVariableKeys)
@@ -32,7 +32,7 @@ struct AnalyticsButtonViewModel: ColoredButtonViewModel {
          icon: ButtonIconViewModel? = nil,
          backgroundColor: UIColor = .gdsGreen,
          shouldLoadOnTap: Bool = false,
-         analyticsService: AnalyticsService,
+         analyticsService: OneLoginAnalyticsService,
          analyticsEvent: Event,
          action: @escaping () -> Void) {
         self.init(titleKey: titleKey,
@@ -49,7 +49,7 @@ struct AnalyticsButtonViewModel: ColoredButtonViewModel {
                  icon: ButtonIconViewModel? = nil,
                  backgroundColor: UIColor = .gdsGreen,
                  shouldLoadOnTap: Bool = false,
-                 analyticsService: AnalyticsService,
+                 analyticsService: OneLoginAnalyticsService,
                  analyticsEvent: Event,
                  action: @escaping () -> Void) {
         self.title = GDSLocalisedString(stringKey: titleKey, variableKeys: titleStringVariableKeys)
