@@ -155,6 +155,11 @@ platform :ios do
         export_method: "app-store"
       )
 
+      upload_to_app_store(
+        force: true,
+        skip_binary_upload: true,
+      )
+
       begin
         upload_to_testflight(
           distribute_external: false,
